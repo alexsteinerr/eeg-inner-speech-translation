@@ -1,6 +1,6 @@
 ## Summary
 
-This repository contains the code accompanying the paper [*A Novel Machine Learning Model for Non-Invasive EEG-Based Inner-Speech Translation in ALS*](https://ieeexplore.ieee.org/document/11435085).
+This repository contains the code accompanying the paper [*A Novel Machine Learning Model for Non-Invasive EEG-Based Inner-Speech Translation in ALS*](https://ieeexplore.ieee.org/document/11435085), presented and published both as a poster and part of the conference proceedings at the IEEE 14th International Winter Conference on Brain-Computer Interface (BCI 2026) in South Korea.
 
 ## Dataset
 
