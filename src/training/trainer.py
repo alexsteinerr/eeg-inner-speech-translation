@@ -56,12 +56,9 @@ class EEGTrainer:
             labels = batch['labels'].to(self.device)
             text_ids = batch['decoder_input_ids'].to(self.device)
             
-            # Apply simple augmentations
             augmented_eeg = self.apply_augmentations(eeg_data)
             
             self.optimizer.zero_grad()
-            
-            # Forward pass - model now handles all loss computation internally
             outputs = self.model(
                 eeg_data=augmented_eeg, 
                 input_ids=text_ids, 

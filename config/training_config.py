@@ -6,14 +6,18 @@ CONFIG = {
     'data_dir': './data/eeg_data/',
     'montage_file': 'data/montage.csv',
     'save_dir': './checkpoints/',
+
     'pretrained_model': 'deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B',
     'hidden_dim': 1024,
     'max_length': 12,
+
     'epochs': 200,
     'batch_size': 2,
     'accumulation_steps': 4,
+
     'brain_encoder_lr': 1e-3,
     'llm_lr': 1e-5,
+
     'weight_decay': 0.01,
     'grad_clip_norm': 1.0,
     'warmup_ratio': 0.2,
@@ -21,6 +25,7 @@ CONFIG = {
     'patience': 15,
     'dropout_rate': 0.4,
     'decoder_prefix_len': 16,
+
     'use_lora': True,
     'lora_rank': 32,
     'lora_alpha': 64,
@@ -28,15 +33,18 @@ CONFIG = {
     'load_in_8bit': False,
     'load_in_4bit': False,
     'max_samples': None,
+
     'train_split': 0.9,
     'val_split': 0.1,
     'seed': 42,
     'mixed_precision': True,
+
     'unfreeze_layers': 6,
     'diversity_lambda': 5.0,
     'anti_collapse_threshold': 0.8,   
     'anti_collapse_eta': 1.0,    
     'anti_collapse_xi': 0.1,     
+    
     'generation': {
         'eval': {
             'max_new_tokens': 15,

@@ -38,7 +38,6 @@ def _merge_cjk_spaces(s: str) -> str:
 def check_early_collapse(model, dataloader, device):
     """Check for collapse in first few batches"""
     logger.info("=== EARLY COLLAPSE DETECTION ===")
-    # CRITICAL FIX: Must be in train mode for Anti-Collapse noise to work
     model.train() 
     
     with torch.no_grad():
@@ -61,7 +60,7 @@ def check_early_collapse(model, dataloader, device):
             
             logger.info(f"Batch {batch_idx}: Similarity={mean_similarity:.4f}, Diversity Loss={diversity_loss.item():.6f}")
             
-            # Adjusted logic: Only stop if similarity is high AND diversity loss is zero
+            # AOnly stop if similarity is high AND diversity loss is zero
             # If diversity loss > 0, it means the model is fighting back (injecting noise)
             if mean_similarity > 0.95 and diversity_loss.item() < 0.001:
                 logger.error("EARLY COLLAPSE DETECTED! Model is stuck and not fighting back.")
@@ -107,7 +106,7 @@ def create_simple_optimizer(model):
 
 def monitor_feature_evolution(model, dataloader, device, epoch):
     logger.info(f"=== FEATURE EVOLUTION EPOCH {epoch} ===")
-    model.eval() # Monitor in eval mode to see 'true' underlying features
+    model.eval() 
     with torch.no_grad():
         batch = next(iter(dataloader))
         eeg_data = [region.to(device) for region in batch['eeg']]
