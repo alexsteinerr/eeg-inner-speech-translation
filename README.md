@@ -47,15 +47,45 @@ The EEG-to-text generation architecture employs a region-aware encoding strategy
 
 ## Results
 
-<h1 align="center">
-  <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-direction: column;">
-    <img src="figures/results_table.png" alt="EEG Results Table" style="width: 80%; margin-bottom: 20px;" />
-    <img src="figures/benchmark_table.png" alt="EEG Benchmark Table" style="width: 80%;" />
-  </div>
-</h1>
+#### Main Results
 
-The results demonstrate the effectiveness of the region-aware architecture and cross-region fusion approach for EEG-to-text generation. The benchmark comparison shows performance against existing methods on the ZuCo dataset.
+Our model was evaluated over three random seeds. Results are reported as mean ± standard deviation, with 95% confidence intervals (CI). The model achieved a BLEU-1 score of **0.512 ± 0.012** and a ROUGE-L F1 score of **0.396 ± 0.009**. Statistical comparisons against the Transformer baseline indicated significant improvements in both metrics (*p* < 0.01), with Cohen's *d* ≥ 1.0 indicating a large effect size.
 
+| Metric | Value | 95% CI |
+|:---|:---:|:---:|
+| BLEU-1 | 0.512 ± 0.012 | [0.482, 0.542] |
+| ROUGE-L F1 | 0.396 ± 0.009 | [0.374, 0.418] |
+| *t*-test vs. Transformer (BLEU-1) | *t* = 4.62 | *p* < 0.01 |
+| *t*-test vs. Transformer (ROUGE-L) | *t* = 4.21 | *p* < 0.01 |
+| Effect size (Cohen's *d*) | ≥ 1.0 | — |
+
+#### Comparison with Existing Baselines
+
+The following table compares our model with previously reported non-invasive EEG decoding baselines evaluated on the ZuCo corpus. Baseline values are illustrative approximations drawn from the cited works and should not be interpreted as results from a controlled, like-for-like evaluation.
+
+| Method and Corpus | BLEU-1 | ROUGE-L F1 |
+|:---|:---:|:---:|
+| Amrani et al. (2023) — ZuCo | ≈ 0.428 | ≈ 0.332 |
+| CET-MAE (Wang et al., 2024) — ZuCo | ≈ 0.421 | ≈ 0.326 |
+| EEG2TEXT (Multi-View) — ZuCo | ≈ 0.452 | ≈ 0.342 |
+| **Our Model** | **0.512** | **0.396** |
+
+#### Ablation Study
+
+To evaluate the contribution of individual architectural components, we conducted ablation experiments in which selected components were removed. Performance changes are reported relative to the full model; negative values indicate a reduction in performance.
+
+| Removed Component | ΔBLEU-1 | ΔBLEU-4 | ΔROUGE-L |
+|:---|---:|---:|---:|
+| Cross-regional attention | −0.058 | −0.047 | −0.053 |
+| Uniform region weighting | −0.035 | −0.020 | −0.036 |
+| Positional embeddings | −0.021 | −0.014 | −0.025 |
+| Per-region CNN only (no self-attention) | −0.114 | −0.076 | −0.118 |
+| No cross-modal fusion transformer | −0.074 | −0.060 | −0.080 |
+| Pure CNN baseline (no attention) | −0.097 | −0.102 | −0.139 |
+
+The ablation results suggest that **cross-regional attention and cross-modal fusion are important contributors to performance**. Removing cross-regional attention reduced BLEU-1 by 0.058 and ROUGE-L F1 by 0.053, while removing the cross-modal fusion transformer reduced these metrics by 0.074 and 0.080, respectively. The per-region CNN-only configuration also produced substantial performance degradation, highlighting the potential value of modelling interactions across EEG regions and integrating their representations.
+
+Learned region weighting and positional embeddings provided additional improvements, suggesting that both region-specific contributions and positional information are useful for EEG-based inner-speech decoding.
 
 ## Quickstart
 
